@@ -1,6 +1,8 @@
 # DualUniverse_OreMonitor
 This Lua Script will help you to display your ores onto a screen
 
+Tutorial: https://youtu.be/yUZbS1jVuyo
+
 # Elements required
 
 - 1 Screen M
