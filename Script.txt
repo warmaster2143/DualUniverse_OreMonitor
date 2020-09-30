@@ -1,0 +1,150 @@
+--[[ FUNCTIONS ]]--
+
+function round(number,decimals)
+    local power = 100^decimals
+    return math.floor((number/1000) * power) / power 
+end
+
+--[[ EXPORTED VARIABLES ]]--
+
+local tableName = "T1 Ores Status" --export:
+local tableNameFontsize = "15em" --export:
+local tableFontSize = "20px" --export:
+local tableWidth = "100%" --export:
+local tableHeight = "100%" --export:
+local BGColor = "#252525" --export: This sets the screen background color
+local use_L_or_Kg = 0 --export: Use 1 for L or 0 for Kg
+
+--[[ Bauxite ]]--
+local maxBauxite = 1000 --export: This is the maximum mass allowed in container. Update as needed
+local weightBauxite = 1.28 --export:
+
+if use_L_or_Kg == 1 then
+    massBauxite = round(math.ceil(bauxite.getItemsMass()/weightBauxite),2)
+    measurement = "L"
+elseif use_L_or_Kg == 0 then  
+    massBauxite = round(math.ceil(bauxite.getItemsMass()),2)
+    measurement = "Kg"
+end
+
+local percentBauxite = math.ceil(((math.ceil((bauxite.getItemsMass()/weightBauxite) - 0.5)/maxBauxite)*100))
+
+--[[ Hematite ]]--
+local maxHematite = 1200 --export: This is the maximum mass allowed in container. Update as needed
+local weightHematite = 5.04 --export:
+
+if use_L_or_Kg == 1 then
+    massHematite = round(math.ceil(hematite.getItemsMass()/weightHematite),2)
+    measurement = "L"
+elseif use_L_or_Kg == 0 then  
+    massHematite = round(math.ceil(hematite.getItemsMass()),2)
+    measurement = "Kg"
+end
+
+local percentHematite = math.ceil(((math.ceil((hematite.getItemsMass()/weightHematite) - 0.5)/maxHematite)*100))
+
+--[[ Coal ]]--
+local maxCoal = 1200 --export: This is the maximum mass allowed in container. Update as needed
+local weightCoal = 1.35 --export:
+
+if use_L_or_Kg == 1 then
+    massCoal = round(math.ceil(coal.getItemsMass()/weightCoal),2)
+    measurement = "L"
+elseif use_L_or_Kg == 0 then  
+    massCoal = round(math.ceil(coal.getItemsMass()),2)
+    measurement = "Kg"
+end
+
+local percentCoal = math.ceil(((math.ceil((coal.getItemsMass()/weightCoal) - 0.5)/maxCoal)*100))
+
+--[[ Quartz ]]--
+local maxQuartz = 1200 --export: This is the maximum mass allowed in container. Update as needed
+local weightQuartz = 2.65 --export:
+
+if use_L_or_Kg == 1 then
+    massQuartz = round(math.ceil(quartz.getItemsMass()/weightQuartz),2)
+    measurement = "L"
+elseif use_L_or_Kg == 0 then  
+    massQuartz = round(math.ceil(quartz.getItemsMass()),2)
+    measurement = "Kg"
+end
+
+local percentQuartz = math.ceil(((math.ceil((quartz.getItemsMass()/weightQuartz) - 0.5)/maxQuartz)*100))
+
+--[[ HTML CODE STARTS HERE ]]--
+
+html = [[
+<body>
+
+<div class="bootstrap">
+<table
+	<tr style="
+		width: 100%;
+		color: white;
+	">
+	<th>]]..tableName..[[</th>
+
+	<tr style="
+		width: 100%;
+		margin-bottom: 25px;
+		background-color: white;
+		color: black;
+	">
+		<th>Ore</th>
+		<th>Levels</th>
+		<th>Total Ore</th>
+	<tr>
+		<th>Bauxite</th>
+		<th>]]..percentBauxite..[[%</th>
+		<th>]]..massBauxite..measurement..[[</th>
+	</tr>
+	<tr>
+		<th>Hematite</th>
+		<th>]]..percentHematite..[[%</th>
+		<th>]]..massHematite..measurement..[[</th>
+	</tr>
+	<tr>
+		<th>Coal</th>
+		<th>]]..percentCoal..[[%</th>
+		<th>]]..massCoal..measurement..[[</th>
+	</tr>
+	<tr>
+		<th>Quartz</th>
+		<th>]]..percentQuartz..[[%</th>
+		<th>]]..massQuartz..measurement..[[</th>
+	</tr>
+
+</table>
+
+<style>
+body {
+	background-color: ]]..BGColor..[[;
+}
+h1 {
+  	font-size: ]]..tableNameFontsize..[[;
+}
+table {
+  	width: ]]..tableWidth..[[;
+	height: ]]..tableHeight..[[;
+}
+table, th, td {
+  	border: 0.5px solid white;
+  	border-collapse: collapse;
+}
+th, td {
+  	padding: 10px;
+  	text-align: center;
+	font-size: ]]..tableFontSize..[[;
+}
+
+</style>
+
+</div>
+
+</body>
+
+]]
+
+--[[ HTML CODE ENDS HERE ]]--
+
+screen.setHTML(html)
